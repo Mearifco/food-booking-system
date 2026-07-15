@@ -1,4 +1,4 @@
-// Create a class
+
 class Booking {
     constructor(customer, food, quantity) {
         this.customer = customer;
@@ -7,89 +7,100 @@ class Booking {
     }
 }
 
-// Instantiate an object
+
 const booking1 = new Booking("Mary", "Burger", 2);
 console.log(booking1);
 
-// Create an array
+
 const bookings = [
     booking1,
     new Booking("John", "Pizza", 1),
     new Booking("Anna", "Spaghetti", 3)
 ];
 
-// Display bookings
-function displayBookings() {
 
+const dialog = document.getElementById("editDialog");
+const updateBtn = document.getElementById("updateBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+
+let currentIndex = -1;
+
+
+function displayBookings() {
     const list = document.getElementById("list");
     list.innerHTML = "";
 
     bookings.forEach((booking, index) => {
-
         list.innerHTML += `
-        <div class="card">
-            <h3>${booking.food}</h3>
-            <p><strong>Customer:</strong> ${booking.customer}</p>
-            <p><strong>Quantity:</strong> ${booking.quantity}</p>
+            <div class="card">
+                <h3>${booking.food}</h3>
+                <p><strong>Customer:</strong> ${booking.customer}</p>
+                <p><strong>Quantity:</strong> ${booking.quantity}</p>
 
-            <button onclick="editBooking(${index})">Edit</button>
-            <button onclick="deleteBooking(${index})">Delete</button>
-        </div>
+                <button onclick="editBooking(${index})">Edit</button>
+                <button onclick="deleteBooking(${index})">Delete</button>
+            </div>
         `;
     });
-
 }
 
 displayBookings();
 
-// Add booking
-document.getElementById("addBtn").addEventListener("click", function(){
+document.getElementById("addBtn").addEventListener("click", function () {
 
     const customer = document.getElementById("customer").value;
     const food = document.getElementById("food").value;
     const quantity = document.getElementById("quantity").value;
 
-    if(customer === "" || food === "" || quantity === ""){
+    if (customer === "" || food === "" || quantity === "") {
         alert("Please fill in all fields.");
         return;
     }
 
-    const newBooking = new Booking(customer, food, quantity);
-
-    bookings.push(newBooking);
+    bookings.push(new Booking(customer, food, quantity));
 
     displayBookings();
 
     document.getElementById("customer").value = "";
     document.getElementById("food").value = "";
     document.getElementById("quantity").value = "";
-
 });
 
-// Delete booking
-function deleteBooking(index){
 
-    bookings.splice(index,1);
+function deleteBooking(index) {
+    bookings.splice(index, 1);
+    displayBookings();
+}
+
+
+function editBooking(index) {
+
+    currentIndex = index;
+
+    document.getElementById("editCustomer").value = bookings[index].customer;
+    document.getElementById("editFood").value = bookings[index].food;
+    document.getElementById("editQuantity").value = bookings[index].quantity;
+
+    dialog.showModal();
+}
+
+
+updateBtn.addEventListener("click", function () {
+
+    bookings[currentIndex].customer =
+        document.getElementById("editCustomer").value;
+
+    bookings[currentIndex].food =
+        document.getElementById("editFood").value;
+
+    bookings[currentIndex].quantity =
+        document.getElementById("editQuantity").value;
 
     displayBookings();
 
-}
+    dialog.close();
+});
 
-// Edit booking
-function editBooking(index){
-
-    const customer = prompt("Customer Name", bookings[index].customer);
-    const food = prompt("Food Name", bookings[index].food);
-    const quantity = prompt("Quantity", bookings[index].quantity);
-
-    if(customer && food && quantity){
-
-        bookings[index].customer = customer;
-        bookings[index].food = food;
-        bookings[index].quantity = quantity;
-
-        displayBookings();
-
-    }
-
-}
+cancelBtn.addEventListener("click", function () {
+    dialog.close();
+});

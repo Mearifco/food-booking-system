@@ -27,13 +27,15 @@ h1{
     margin-bottom:20px;
 }
 
-input{
+input,
+select{
     width:100%;
     padding:10px;
     margin:8px 0;
     border:1px solid #D8C3A5;
     border-radius:6px;
     background:#FAF6F0;
+    font-size:16px;
 }
 
 button{
@@ -74,4 +76,49 @@ button:hover{
 
 .card button:last-child{
     background:#C97C5D;
+}
+
+.card button:last-child:hover{
+    background:#B5654D;
+}
+
+
+
+dialog{
+    width:350px;
+    border:none;
+    border-radius:12px;
+    padding:20px;
+    background:#FFFDF9;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+
+ text-align: center;
+}
+
+dialog h2{
+    text-align:center;
+    color:#8B5E3C;
+    margin-bottom:15px;
+}
+
+dialog::backdrop {
+    background: rgba(0,0,0,0.5);
+}
+
+dialog input,
+dialog select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #D8C3A5;
+    border-radius: 6px;
+    background: #FAF6F0;
+}
+
+#cancelBtn{
+    background:#C97C5D;
+}
+
+#cancelBtn:hover{
+    background:#B5654D;
 }
