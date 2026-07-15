@@ -122,3 +122,7 @@ dialog select {
 #cancelBtn:hover{
     background:#B5654D;
 }
+
+#editDialog{
+    margin: auto;
+}
